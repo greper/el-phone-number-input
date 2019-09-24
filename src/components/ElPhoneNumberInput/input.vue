@@ -3,7 +3,7 @@
       type="text"
       v-model="number"
       :placeholder="numberPlaceholder">
-    <el-select slot="prepend" class="input_prepend" filterable v-model="code" placeholder="请选择">
+    <el-select slot="prepend" :style="{width:selectWidth?selectWidth:'130px'}" filterable v-model="code" placeholder="请选择">
       <el-option
           v-for="item in countryOptions"
           :key="item.iso2"
@@ -22,7 +22,8 @@ export default {
     codePlaceHolder: { defaultValue: '请选择', require: false },
     value: { type: Object, require: false }, // 结构与selectValue一致
     onlyCountries: { require: false },
-    ignoredCountries: { require: false }
+    ignoreCountries: { require: false },
+    selectWidth: { defaultValue: '130px', require: false }
   },
   data () {
     return {
@@ -42,7 +43,7 @@ export default {
       if (this.onlyCountries != null) {
         options = countries.filter(item => this.onlyCountries.find(country => item.iso2.includes(country)))
       } else if (this.ignoredCountries != null) {
-        options = countries.filter(item => !this.ignoredCountries.find(country => item.iso2.includes(country)))
+        options = countries.filter(item => !(this.ignoredCountries.find(country => item.iso2.includes(country))))
       } else {
         options = countries
       }
@@ -101,7 +102,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.input_prepend{
-  min-width:130px;
-}
+
 </style>

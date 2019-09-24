@@ -1,7 +1,13 @@
 {
   "name": "el-phone-number-input",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "private": false,
+  "license": "MIT",
+  "main": "dist/el-phone-number-input.common.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/greper/el-phone-number-input.git"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

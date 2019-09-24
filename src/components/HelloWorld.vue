@@ -1,6 +1,11 @@
 <template>
   <el-container>
+
     <div style="margin: auto;width:50%">
+      <h2> ElPhoneNumberInput 示例</h2>
+      <div style="margin-bottom: 20px;">
+      github: <a href="https://github.com/greper/el-phone-number-input" target="_blank">https://github.com/greper/el-phone-number-input</a>
+      </div>
       <el-form ref="form" :model="form"  :rules="rules" label-width="120px" >
         <el-form-item label="无默认值"  prop="noValue">
           <el-phone-number-input v-model="form.noValue" :onlyCountries="onlyCountries"></el-phone-number-input>
@@ -15,7 +20,10 @@
           <el-phone-number-input v-model="form.only" :onlyCountries="onlyCountries"></el-phone-number-input>
         </el-form-item>
         <el-form-item label="不包含某些国家"  prop="ignore">
-          <el-phone-number-input v-model="form.ignore" :ignoreCountries="ignoreCountries"></el-phone-number-input>
+          <el-phone-number-input v-model="form.ignore" :ignoredCountries="ignoredCountries" ></el-phone-number-input>
+        </el-form-item>
+        <el-form-item label="国家选择宽度"  prop="ignore">
+          <el-phone-number-input v-model="form.ignore" :onlyCountries="onlyCountries" selectWidth="200px"></el-phone-number-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('form')">提交</el-button>
@@ -36,7 +44,7 @@ export default {
   data () {
     return {
       onlyCountries: ['CN', 'HK', 'TW', 'US'],
-      ignoreCountries: ['AF', 'AL', 'DZ'],
+      ignoredCountries: ['AF', 'AL', 'DZ', 'CN', 'HK', 'TW', 'US'],
       form: {
         noValue: {},
         mobile: {
