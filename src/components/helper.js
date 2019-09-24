@@ -1,14 +1,10 @@
-<template>
+export default {
+  code: `<template>
   <el-container>
-
-    <div style="margin: auto;width:50%">
-      <h2> ElPhoneNumberInput 示例</h2>
-      <div style="margin-bottom: 20px;">
-      github: <a href="https://github.com/greper/el-phone-number-input" target="_blank">https://github.com/greper/el-phone-number-input</a>
-      </div>
+    <div >
       <el-form ref="form" :model="form"  :rules="rules" label-width="120px" >
         <el-form-item label="无默认值"  prop="noValue">
-          <el-phone-number-input v-model="form.noValue" ></el-phone-number-input>
+          <el-phone-number-input v-model="form.noValue" :onlyCountries="onlyCountries"></el-phone-number-input>
         </el-form-item>
         <el-form-item label="手机号码"  prop="mobile">
           <el-phone-number-input v-model="form.mobile" :onlyCountries="onlyCountries"></el-phone-number-input>
@@ -30,18 +26,12 @@
           <el-button @click="resetForm('form')">重置</el-button>
         </el-form-item>
       </el-form>
-
-      <div style="text-align: left">
-        <h3>代码</h3>
-        <d2-highlight :code="helper"/>
-      </div>
     </div>
   </el-container>
 </template>
 
 <script>
 import { ElPhoneNumberInput, mobileValidator, phoneNumberValidator } from './ElPhoneNumberInput/index.js'
-import helper from './helper'
 export default {
   name: 'Example',
   components: { ElPhoneNumberInput },
@@ -49,7 +39,6 @@ export default {
   },
   data () {
     return {
-      helper: helper.code,
       onlyCountries: ['CN', 'HK', 'TW', 'US'],
       ignoredCountries: ['AF', 'AL', 'DZ', 'CN', 'HK', 'TW', 'US'],
       form: {
@@ -102,3 +91,5 @@ export default {
   }
 }
 </script>
+`
+}

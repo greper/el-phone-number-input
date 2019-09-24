@@ -34,8 +34,8 @@ function phoneNumberValidator (rule, value, callback) {
     return callback()
   }
   let parse = getParsePhoneNumberFromString({ phoneNumber: value.phoneNumber, countryCode: value.countryCode })
-  console.log('parse:', parse)
   if (!parse.isValid) {
+    console.warn('parse:', parse)
     return callback(new Error('电话号码错误'))
   }
   return callback()
@@ -53,8 +53,8 @@ function mobileValidator (rule, value, callback) {
     return callback()
   }
   let parse = getParsePhoneNumberFromString({ phoneNumber: value.phoneNumber, countryCode: value.countryCode })
-  console.log('parse:', parse)
   if (!parse.isValid || parse.type !== 'MOBILE') {
+    console.warn('parse:', parse)
     return callback(new Error('手机号错误'))
   }
   return callback()
