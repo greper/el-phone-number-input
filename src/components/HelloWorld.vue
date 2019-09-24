@@ -53,7 +53,7 @@ export default {
         },
         phone: {
           callingCode: '86',
-          phoneNumber: '18611112222'
+          phoneNumber: '075501010202'
         },
         ignore: {
           countryCode: 'CN',

@@ -28,14 +28,24 @@ export default {
   data () {
     return {
       selectValue: {
-        callingCode: 86, // 电话区号
+        callingCode: '86', // 电话区号
         countryCode: 'CN', // 国家代码
-        phoneNumber: '' // 电话号码
+        phoneNumber: null // 电话号码
       }
     }
   },
   created () {
-
+    const ret = this.getCountryByValue(this.value)
+    if (ret != null) {
+      this.selectValue.callingCode = ret.dialCode
+      this.selectValue.countryCode = ret.iso2
+      this.$nextTick(() => {
+        this.emitValue()
+      })
+    }
+    if (this.value != null && this.value.phoneNumber != null) {
+      this.selectValue.phoneNumber = this.value.phoneNumber
+    }
   },
   computed: {
     countryOptions () {
@@ -51,14 +61,7 @@ export default {
     },
     code: {
       get () {
-        let ret = null
-        if (this.value != null) {
-          if (this.value.countryCode != null) {
-            ret = this.countryOptions.find(item => item.iso2 === this.value.countryCode)
-          } else if (this.value.callingCode != null) {
-            ret = this.countryOptions.find(item => item.dialCode === this.value.callingCode)
-          }
-        }
+        let ret = this.getCountryByValue(this.value)
         if (ret != null) {
           return ret.iso2
         }
@@ -96,6 +99,17 @@ export default {
   methods: {
     emitValue () {
       this.$emit('input', this.selectValue)
+    },
+    getCountryByValue (value) {
+      let ret = null
+      if (value != null) {
+        if (value.countryCode != null) {
+          ret = this.countryOptions.find(item => item.iso2 === value.countryCode)
+        } else if (value.callingCode != null) {
+          ret = this.countryOptions.find(item => item.dialCode === value.callingCode)
+        }
+      }
+      return ret
     }
   }
 }

@@ -30,14 +30,15 @@ function getParsePhoneNumberFromString ({ phoneNumber, countryCode }) {
  * @returns {boolean|*}
  */
 function phoneNumberValidator (rule, value, callback) {
-  if (!value) {
-    return
+  if (!value || value.phoneNumber == null || value.phoneNumber === '') {
+    return callback()
   }
-  let parse = getParsePhoneNumberFromString(value)
+  let parse = getParsePhoneNumberFromString({ phoneNumber: value.phoneNumber, countryCode: value.countryCode })
+  console.log('parse:', parse)
   if (!parse.isValid) {
     return callback(new Error('电话号码错误'))
   }
-  return true
+  return callback()
 }
 
 /**
@@ -48,13 +49,14 @@ function phoneNumberValidator (rule, value, callback) {
  * @returns {boolean|*}
  */
 function mobileValidator (rule, value, callback) {
-  if (!value) {
-    return
+  if (!value || value.phoneNumber == null || value.phoneNumber === '') {
+    return callback()
   }
-  let parse = getParsePhoneNumberFromString(value)
+  let parse = getParsePhoneNumberFromString({ phoneNumber: value.phoneNumber, countryCode: value.countryCode })
+  console.log('parse:', parse)
   if (!parse.isValid || parse.type !== 'MOBILE') {
     return callback(new Error('手机号错误'))
   }
-  return true
+  return callback()
 }
 export { ElPhoneNumberInput, phoneNumberValidator, mobileValidator }
