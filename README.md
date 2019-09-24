@@ -53,8 +53,7 @@ npm i element-ui el-phone-number-input -S
 
 名称 | 详情| 示例 |  默认值   
 -|-|-|-
-value | 
-Object类型的默认值，3个属性均可为空<br/>coutryCode:国家代码<br/>callingCode:电话区号<br/>phoneNumber:电话号码<br/> | {<br/>coutryCode:'CN',<br/>callingCode:'86',<br/>phoneNumber:'18601010202'<br/>} | 无 |
+value | Object类型的默认值，3个属性均可为空<br/>coutryCode:国家代码<br/>callingCode:电话区号<br/>phoneNumber:电话号码<br/> | {<br/>coutryCode:'CN',<br/>callingCode:'86',<br/>phoneNumber:'18601010202'<br/>} | 无 |
 numberPlaceholder | 号码输入框的placeholder| | 手机号 |
 codePlaceHolder | 地区选择框的placeholder| | 请选择 |
 onlyCountries | 仅支持哪些国家地区 |['CN', 'HK', 'TW', 'US'] | 无 |
