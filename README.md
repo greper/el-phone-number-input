@@ -1,6 +1,6 @@
 # el-phone-number-input
 基于ElementUI的国际电话输入框组件
-查看示例：http://qiniu.veryreader.com/ElPhoneNumberInput/index.html?v=1.0.0
+查看示例：http://qiniu.veryreader.com/ElPhoneNumberInput/index.html?v=1.0.1
 
 ## 快速开始
     
