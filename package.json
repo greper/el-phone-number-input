@@ -5,11 +5,17 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build:lib": "vue-cli-service build --target lib ./src/components/ElPhoneNumberInput/index.js"
   },
+  "files": [
+    "dist/"
+  ],
   "dependencies": {
+    "libphonenumber-js": "^1.7.25",
     "core-js": "^2.6.5",
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "element-ui": "^2.11.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
@@ -19,7 +25,9 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "sass": "^1.18.0",
+    "sass-loader": "^7.1.0"
   },
   "eslintConfig": {
     "root": true,

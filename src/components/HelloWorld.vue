@@ -1,58 +1,93 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
+  <el-container>
+    <div style="margin: auto;width:50%">
+      <el-form ref="form" :model="form"  :rules="rules" label-width="120px" >
+        <el-form-item label="无默认值"  prop="noValue">
+          <el-phone-number-input v-model="form.noValue" :onlyCountries="onlyCountries"></el-phone-number-input>
+        </el-form-item>
+        <el-form-item label="手机号码"  prop="mobile">
+          <el-phone-number-input v-model="form.mobile" :onlyCountries="onlyCountries"></el-phone-number-input>
+        </el-form-item>
+        <el-form-item label="电话号码"  prop="phone">
+          <el-phone-number-input v-model="form.phone" :onlyCountries="onlyCountries"></el-phone-number-input>
+        </el-form-item>
+        <el-form-item label="仅包含某些国家"  prop="only">
+          <el-phone-number-input v-model="form.only" :onlyCountries="onlyCountries"></el-phone-number-input>
+        </el-form-item>
+        <el-form-item label="不包含某些国家"  prop="ignore">
+          <el-phone-number-input v-model="form.ignore" :ignoreCountries="ignoreCountries"></el-phone-number-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('form')">提交</el-button>
+          <el-button @click="resetForm('form')">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+  </el-container>
 </template>
 
 <script>
+import { ElPhoneNumberInput, mobileValidator, phoneNumberValidator } from './ElPhoneNumberInput/index.js'
 export default {
-  name: 'HelloWorld',
+  name: 'Example',
+  components: { ElPhoneNumberInput },
   props: {
-    msg: String
+  },
+  data () {
+    return {
+      onlyCountries: ['CN', 'HK', 'TW', 'US'],
+      ignoreCountries: ['AF', 'AL', 'DZ'],
+      form: {
+        noValue: {},
+        mobile: {
+          callingCode: '86',
+          phoneNumber: '18611112222'
+        },
+        phone: {
+          callingCode: '86',
+          phoneNumber: '18611112222'
+        },
+        ignore: {
+          countryCode: 'CN',
+          phoneNumber: ''
+        },
+        only: {
+          countryCode: 'CN',
+          phoneNumber: ''
+        }
+      },
+      rules: {
+        noValue: [
+          { required: true, message: '请输入手机号' }
+        ],
+        mobile: [
+          { required: true, message: '请输入手机号' },
+          { validator: mobileValidator, message: '手机号不正确' }
+        ],
+        phone: [
+          { validator: phoneNumberValidator, message: '电话号码不正确' }
+        ]
+      }
+    }
+  },
+  methods: {
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!')
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
+    }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>
