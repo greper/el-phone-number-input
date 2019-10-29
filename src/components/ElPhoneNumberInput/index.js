@@ -1,7 +1,11 @@
 import ElPhoneNumberInput from './input'
 import { parsePhoneNumberFromString } from 'libphonenumber-js/max'
+
 function getParsePhoneNumberFromString ({ phoneNumber, countryCode }) {
-  const parsing = phoneNumber && countryCode ? parsePhoneNumberFromString(phoneNumber, countryCode) : null
+  const parsing =
+    phoneNumber && countryCode
+      ? parsePhoneNumberFromString(phoneNumber, countryCode)
+      : null
   return {
     phoneNumber: phoneNumber || null,
     countryCode: countryCode,
@@ -17,8 +21,7 @@ function getParsePhoneNumberFromString ({ phoneNumber, countryCode }) {
         uri: parsing.getURI(),
         e164: parsing.format('E.164')
       }
-      : null
-    )
+      : null)
   }
 }
 
@@ -33,7 +36,10 @@ function phoneNumberValidator (rule, value, callback) {
   if (!value || value.phoneNumber == null || value.phoneNumber === '') {
     return callback()
   }
-  let parse = getParsePhoneNumberFromString({ phoneNumber: value.phoneNumber, countryCode: value.countryCode })
+  let parse = getParsePhoneNumberFromString({
+    phoneNumber: value.phoneNumber,
+    countryCode: value.countryCode
+  })
   if (!parse.isValid) {
     console.warn('parse:', parse)
     return callback(new Error('电话号码错误'))
@@ -52,11 +58,15 @@ function mobileValidator (rule, value, callback) {
   if (!value || value.phoneNumber == null || value.phoneNumber === '') {
     return callback()
   }
-  let parse = getParsePhoneNumberFromString({ phoneNumber: value.phoneNumber, countryCode: value.countryCode })
+  let parse = getParsePhoneNumberFromString({
+    phoneNumber: value.phoneNumber,
+    countryCode: value.countryCode
+  })
   if (!parse.isValid || parse.type !== 'MOBILE') {
     console.warn('parse:', parse)
     return callback(new Error('手机号错误'))
   }
   return callback()
 }
+
 export { ElPhoneNumberInput, phoneNumberValidator, mobileValidator }

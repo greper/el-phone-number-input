@@ -1,6 +1,6 @@
 {
   "name": "el-phone-number-input",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": false,
   "license": "MIT",
   "main": "dist/el-phone-number-input.common.js",
@@ -11,6 +11,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "analyze": "cross-env NODE_ENV=production NODE_ENV.env.BUILD_ANALYZE=true npm_config_report=true npm run build:lib",
     "lint": "vue-cli-service lint",
     "build:lib": "vue-cli-service build --target lib ./src/components/ElPhoneNumberInput/index.js",
     "build:wc": "vue-cli-service build --target wc --name el-phone-number-input ./src/components/ElPhoneNumberInput/input.vue"
@@ -20,7 +21,6 @@
   ],
   "dependencies": {
     "libphonenumber-js": "^1.7.25",
-    "core-js": "^2.6.5",
     "vue": "^2.6.10",
     "element-ui": "^2.11.1"
   },
@@ -32,9 +32,11 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.6.10",
     "sass": "^1.18.0",
-    "sass-loader": "^7.1.0"
+    "sass-loader": "^7.1.0",
+    "vue-template-compiler": "^2.6.10",
+    "webpack-bundle-analyzer": "^3.6.0",
+    "core-js": "^2.6.5"
   },
   "eslintConfig": {
     "root": true,
