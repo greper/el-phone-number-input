@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "private": false,
   "license": "MIT",
-  "main": "dist/el-phone-number-input.common.js",
+  "main": "dist/el-phone-number-input.umd.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/greper/el-phone-number-input.git"
