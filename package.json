@@ -1,6 +1,6 @@
 {
   "name": "el-phone-number-input",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": false,
   "license": "MIT",
   "main": "dist/el-phone-number-input.umd.js",
