@@ -11,19 +11,19 @@
           <el-phone-number-input v-model="form.noValue" @change="handleChange"></el-phone-number-input>
         </el-form-item>
         <el-form-item label="手机号码"  prop="mobile">
-          <el-phone-number-input v-model="form.mobile" :onlyCountries="onlyCountries"></el-phone-number-input>
+          <el-phone-number-input v-model="form.mobile" :onlyCountries="onlyCountries" @change="handleChange"></el-phone-number-input>
         </el-form-item>
         <el-form-item label="电话号码"  prop="phone">
-          <el-phone-number-input v-model="form.phone" :onlyCountries="onlyCountries"></el-phone-number-input>
+          <el-phone-number-input v-model="form.phone" :onlyCountries="onlyCountries" @change="handleChange"></el-phone-number-input>
         </el-form-item>
         <el-form-item label="仅包含某些国家"  prop="only">
-          <el-phone-number-input v-model="form.only" :onlyCountries="onlyCountries"></el-phone-number-input>
+          <el-phone-number-input v-model="form.only" :onlyCountries="onlyCountries" @change="handleChange"></el-phone-number-input>
         </el-form-item>
         <el-form-item label="不包含某些国家"  prop="ignore">
-          <el-phone-number-input v-model="form.ignore" :ignoredCountries="ignoredCountries" ></el-phone-number-input>
+          <el-phone-number-input v-model="form.ignore" :ignoredCountries="ignoredCountries" @change="handleChange"></el-phone-number-input>
         </el-form-item>
         <el-form-item label="国家选择宽度"  prop="ignore">
-          <el-phone-number-input v-model="form.ignore" :onlyCountries="onlyCountries" selectWidth="200px"></el-phone-number-input>
+          <el-phone-number-input v-model="form.ignore" :onlyCountries="onlyCountries" selectWidth="200px" @change="handleChange"></el-phone-number-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('form')">提交</el-button>

@@ -2,9 +2,10 @@
   <el-input
     :placeholder="numberPlaceholder"
     type="text"
-    v-model="number">
+    v-model="number"
+    @change="handleChanged">
     <el-select :style="{width:selectWidth?selectWidth:'130px'}" filterable placeholder="请选择" slot="prepend"
-               v-model="code">
+               v-model="code" @change="handleSelectChanged">
       <el-option
         :key="item.iso2"
         :label="item.name"
@@ -63,7 +64,6 @@ export default {
     },
     code: {
       get () {
-        this.$emit('change', this.value)
         let ret = this.getCountryByValue(this.value)
         if (ret != null) {
           return ret.iso2
@@ -71,31 +71,19 @@ export default {
         return null
       },
       set (countryCode) {
-        let ret = this.countryOptions.find(item => item.iso2 === countryCode)
-        this.selectValue.countryCode = countryCode
-        this.selectValue.callingCode = ret.dialCode
-        if (this.value != null && this.value.phoneNumber != null) {
-          this.selectValue.phoneNumber = this.value.phoneNumber
-        }
+        this.changeCountry(countryCode)
         this.emitValue()
       }
     },
     number: {
       get () {
-        this.$emit('change', this.value)
         if (this.value == null) {
           return null
         }
         return this.value.phoneNumber
       },
       set (phoneNumber) {
-        if (this.value != null && this.value.countryCode != null) {
-          this.selectValue.countryCode = this.value.countryCode
-        }
-        if (this.value != null && this.value.callingCode != null) {
-          this.selectValue.callingCode = this.value.callingCode
-        }
-        this.selectValue.phoneNumber = phoneNumber
+        this.changeNumber(phoneNumber)
         this.emitValue()
       }
     }
@@ -115,6 +103,31 @@ export default {
         }
       }
       return ret
+    },
+    handleSelectChanged (value) {
+      this.changeCountry(value)
+      this.$emit('change', this.value)
+    },
+    handleChanged (value) {
+      this.changeNumber(value)
+      this.$emit('change', this.value)
+    },
+    changeNumber (phoneNumber) {
+      if (this.value != null && this.value.countryCode != null) {
+        this.selectValue.countryCode = this.value.countryCode
+      }
+      if (this.value != null && this.value.callingCode != null) {
+        this.selectValue.callingCode = this.value.callingCode
+      }
+      this.selectValue.phoneNumber = phoneNumber
+    },
+    changeCountry (countryCode) {
+      let ret = this.countryOptions.find(item => item.iso2 === countryCode)
+      this.selectValue.countryCode = countryCode
+      this.selectValue.callingCode = ret.dialCode
+      if (this.value != null && this.value.phoneNumber != null) {
+        this.selectValue.phoneNumber = this.value.phoneNumber
+      }
     }
   }
 }
