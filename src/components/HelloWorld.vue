@@ -8,7 +8,7 @@
       </div>
       <el-form ref="form" :model="form"  :rules="rules" label-width="120px" >
         <el-form-item label="无默认值"  prop="noValue">
-          <el-phone-number-input v-model="form.noValue" ></el-phone-number-input>
+          <el-phone-number-input v-model="form.noValue" @change="handleChange"></el-phone-number-input>
         </el-form-item>
         <el-form-item label="手机号码"  prop="mobile">
           <el-phone-number-input v-model="form.mobile" :onlyCountries="onlyCountries"></el-phone-number-input>
@@ -98,6 +98,9 @@ export default {
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
+    },
+    handleChange (value) {
+      console.log('change', value)
     }
   }
 }

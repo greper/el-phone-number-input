@@ -1,20 +1,22 @@
 <template>
   <el-input
-      type="text"
-      v-model="number"
-      :placeholder="numberPlaceholder">
-    <el-select slot="prepend" :style="{width:selectWidth?selectWidth:'130px'}" filterable v-model="code" placeholder="请选择">
+    :placeholder="numberPlaceholder"
+    type="text"
+    v-model="number">
+    <el-select :style="{width:selectWidth?selectWidth:'130px'}" filterable placeholder="请选择" slot="prepend"
+               v-model="code">
       <el-option
-          v-for="item in countryOptions"
-          :key="item.iso2"
-          :label="item.name"
-          :value="item.iso2">
+        :key="item.iso2"
+        :label="item.name"
+        :value="item.iso2"
+        v-for="item in countryOptions">
       </el-option>
     </el-select>
   </el-input>
 </template>
 <script>
 import { countries } from './phoneCodeCountries.js'
+
 export default {
   name: 'el-phone-number-input',
   props: {
@@ -61,6 +63,7 @@ export default {
     },
     code: {
       get () {
+        this.$emit('change', this.value)
         let ret = this.getCountryByValue(this.value)
         if (ret != null) {
           return ret.iso2
@@ -79,6 +82,7 @@ export default {
     },
     number: {
       get () {
+        this.$emit('change', this.value)
         if (this.value == null) {
           return null
         }
@@ -98,6 +102,7 @@ export default {
   },
   methods: {
     emitValue () {
+      console.log('input', this.selectValue)
       this.$emit('input', this.selectValue)
     },
     getCountryByValue (value) {

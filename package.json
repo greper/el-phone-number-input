@@ -10,10 +10,10 @@
   },
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target  lib   ./src/components/ElPhoneNumberInput/index.js",
     "analyze": "cross-env NODE_ENV=production NODE_ENV.env.BUILD_ANALYZE=true npm_config_report=true npm run build:lib",
     "lint": "vue-cli-service lint",
-    "build:lib": "vue-cli-service build --target lib ./src/components/ElPhoneNumberInput/index.js",
+    "build:lib": "vue-cli-service build --target  lib --report ./src/components/ElPhoneNumberInput/index.js",
     "build:wc": "vue-cli-service build --target wc --name el-phone-number-input ./src/components/ElPhoneNumberInput/input.vue"
   },
   "files": [
@@ -21,8 +21,7 @@
   ],
   "dependencies": {
     "libphonenumber-js": "^1.7.25",
-    "vue": "^2.6.10",
-    "element-ui": "^2.11.1"
+    "vue": "^2.6.10"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
@@ -36,7 +35,8 @@
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10",
     "webpack-bundle-analyzer": "^3.6.0",
-    "core-js": "^2.6.5"
+    "core-js": "^2.6.5",
+    "element-ui": "^2.11.1"
   },
   "eslintConfig": {
     "root": true,
