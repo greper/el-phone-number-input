@@ -1,6 +1,6 @@
 {
   "name": "el-phone-number-input",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": false,
   "license": "MIT",
   "main": "dist/el-phone-number-input.umd.js",
@@ -10,6 +10,7 @@
   },
   "scripts": {
     "serve": "vue-cli-service serve",
+    "dev": "vue-cli-service serve",
     "build:demo": "vue-cli-service build",
     "build": "vue-cli-service build --target  lib   ./src/components/ElPhoneNumberInput/index.js",
     "analyze": "cross-env NODE_ENV=production NODE_ENV.env.BUILD_ANALYZE=true npm_config_report=true npm run build:lib",
@@ -21,7 +22,7 @@
     "dist/"
   ],
   "dependencies": {
-    "libphonenumber-js": "^1.7.25",
+    "libphonenumber-js": "^1.7.54",
     "vue": "^2.6.10"
   },
   "devDependencies": {

@@ -4969,12 +4969,12 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-libphonenumber-js@^1.7.25:
-  version "1.7.26"
-  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.7.26.tgz#24819cd10cf3a2d85f5cd446c56f2fdc0ca0ae51"
-  integrity sha512-23y9szw5sCrko0i4bO+jv6B3fFJkr0+bZ/5DLyY7TxBDJ04ACw+obdOdR3d2aOwbnOW+eevcgt8HqYgvjrfD/A==
+libphonenumber-js@^1.7.54:
+  version "1.7.54"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.7.54.tgz#efc9865c72b754ff45331afee57fcb5c409b218b"
+  integrity sha512-RCJ0DHyMkzgztt+jBEmUpcb6iM72Ouodhr+MDETkRWZpT47jAmM7KT3xXMMogknbH2MNKdHNTuOCS+u44T+E5Q==
   dependencies:
-    minimist "^1.2.0"
+    minimist "^1.2.5"
     xml2js "^0.4.17"
 
 lines-and-columns@^1.1.6:
@@ -5324,6 +5324,11 @@ minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
   integrity sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ=
+
+minimist@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
+  integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
 minipass@^2.6.0, minipass@^2.8.6, minipass@^2.9.0:
   version "2.9.0"
