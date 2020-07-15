@@ -1,6 +1,6 @@
 # el-phone-number-input
 基于ElementUI的国际电话输入框组件
-查看示例：http://qiniu.veryreader.com/ElPhoneNumberInput/index.html?v=1.0.1
+查看示例：http://greper.veryreader.com/ElPhoneNumberInput/index.html
 
 ## 快速开始
     
@@ -59,3 +59,7 @@ codePlaceHolder | 地区选择框的placeholder| | 请选择 |
 onlyCountries | 仅支持哪些国家地区 |['CN', 'HK', 'TW', 'US'] | 无 |
 ignoreCountries | 忽略哪些国家地区 |['CN', 'HK', 'TW', 'US'] | 无 |
 selectWidth | 国家地区选择框的宽度，注意要带px，也支持% | 130px | 130px |
+priorityCountries | 哪些国家地区优先 |['CN', 'HK', 'TW', 'US'] | 无 |
+clearable | 是否支持清空 | true,false | true |
+filterable | 是否支持国家地区过滤 | true,false | true |
+defaultCountry | 输入手机号后触发默认选择的国家 | CN | CN |
