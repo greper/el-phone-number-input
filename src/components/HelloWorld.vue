@@ -16,20 +16,27 @@
         <el-form-item label="电话号码"  prop="phone">
           <el-phone-number-input v-model="form.phone" :onlyCountries="onlyCountries" @change="handleChange"></el-phone-number-input>
         </el-form-item>
+        <el-form-item label="国家代码"  prop="countryCode">
+          <el-phone-number-input v-model="form.countryCode"  @change="handleChange"></el-phone-number-input>
+        </el-form-item>
         <el-form-item label="仅包含某些国家"  prop="only">
-          <el-phone-number-input v-model="form.only" :onlyCountries="onlyCountries" @change="handleChange"></el-phone-number-input>
+          <el-phone-number-input v-model="form.countryCode" :onlyCountries="onlyCountries" @change="handleChange"></el-phone-number-input>
         </el-form-item>
-        <el-form-item label="不包含某些国家"  prop="ignore">
-          <el-phone-number-input v-model="form.ignore" :ignoredCountries="ignoredCountries" @change="handleChange"></el-phone-number-input>
+        <el-form-item label="不包含某些国家"  prop="ignored">
+          <el-phone-number-input v-model="form.countryCode" :ignoredCountries="ignoredCountries" @change="handleChange"></el-phone-number-input>
         </el-form-item>
-        <el-form-item label="国家选择宽度"  prop="ignore">
-          <el-phone-number-input v-model="form.ignore" :onlyCountries="onlyCountries" selectWidth="200px" @change="handleChange"></el-phone-number-input>
+        <el-form-item label="某些国家优先"  prop="priority">
+          <el-phone-number-input v-model="form.countryCode" :priorityCountries="priorityCountries" @change="handleChange"></el-phone-number-input>
+        </el-form-item>
+        <el-form-item label="国家选择宽度"  prop="only">
+          <el-phone-number-input v-model="form.countryCode" :onlyCountries="onlyCountries" selectWidth="200px" @change="handleChange"></el-phone-number-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('form')">提交</el-button>
           <el-button @click="resetForm('form')">重置</el-button>
         </el-form-item>
       </el-form>
+      <pre style="text-align: left">{{form}}</pre>
 
       <div style="text-align: left">
         <h3>代码</h3>
@@ -50,6 +57,7 @@ export default {
   data () {
     return {
       helper: helper.code,
+      priorityCountries: ['CN', 'HK', 'TW', 'US'],
       onlyCountries: ['CN', 'HK', 'TW', 'US'],
       ignoredCountries: ['AF', 'AL', 'DZ', 'CN', 'HK', 'TW', 'US'],
       form: {
@@ -62,14 +70,11 @@ export default {
           callingCode: '86',
           phoneNumber: '075501010202'
         },
-        ignore: {
+        countryCode: {
           countryCode: 'CN',
-          phoneNumber: ''
-        },
-        only: {
-          countryCode: 'CN',
-          phoneNumber: ''
+          phoneNumber: '18611111111'
         }
+
       },
       rules: {
         noValue: [

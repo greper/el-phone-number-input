@@ -2,10 +2,11 @@
   <el-input
     :placeholder="numberPlaceholder"
     type="text"
-    v-model="number"
-    @change="handleChanged">
-    <el-select :style="{width:selectWidth?selectWidth:'130px'}" filterable placeholder="请选择" slot="prepend"
-               v-model="code" @change="handleSelectChanged">
+    :value="selectValue.phoneNumber"
+    :clearable="clearable"
+    @input="handleNumberInput">
+    <el-select :style="{width:selectWidth?selectWidth:'130px'}" :filterable="filterable" :clearable="clearable" placeholder="请选择" slot="prepend"
+        :value="selectValue.countryCode" @input="handleSelectInput" >
       <el-option
         :key="item.iso2"
         :label="item.name"
@@ -21,77 +22,83 @@ import { countries } from './phoneCodeCountries.js'
 export default {
   name: 'el-phone-number-input',
   props: {
-    numberPlaceholder: { defaultValue: '手机号', require: false },
-    codePlaceHolder: { defaultValue: '请选择', require: false },
-    value: { type: Object, require: false }, // 结构与selectValue一致
-    onlyCountries: { require: false },
-    ignoreCountries: { require: false },
-    selectWidth: { defaultValue: '130px', require: false }
+    numberPlaceholder: { default: '手机号', require: false },
+    codePlaceHolder: { default: '请选择', require: false },
+
+    /**
+     * selectValue: {
+        callingCode: undefined, // 电话区号
+        countryCode: undefined, // 国家代码
+        phoneNumber: undefined // 电话号码
+      }
+     */
+    value: { type: Object, require: false }, // 结构
+    onlyCountries: { require: false }, // 仅限国家地区
+    ignoreCountries: { require: false }, // 忽略国家地区
+    priorityCountries: { require: false }, // 优先国家地区
+    selectWidth: { default: '130px', require: false },
+    clearable: { default: true },
+    filterable: { default: true },
+    defaultCountry: { default: 'CN' }
   },
   data () {
     return {
       selectValue: {
-        callingCode: '86', // 电话区号
-        countryCode: 'CN', // 国家代码
-        phoneNumber: null // 电话号码
+        callingCode: undefined, // 电话区号
+        countryCode: undefined, // 国家代码
+        phoneNumber: undefined // 电话号码
+      }
+    }
+  },
+  watch: {
+    value (value, oldValue) {
+      this.$emit('change', this.getEmitValue())
+      if (this.isChanged(value)) {
+        this.setValue(value)
       }
     }
   },
   created () {
-    const ret = this.getCountryByValue(this.value)
-    if (ret != null) {
-      this.selectValue.callingCode = ret.dialCode
-      this.selectValue.countryCode = ret.iso2
-      this.$nextTick(() => {
-        this.emitValue()
-      })
-    }
-    if (this.value != null && this.value.phoneNumber != null) {
-      this.selectValue.phoneNumber = this.value.phoneNumber
-    }
+    this.setValue(this.value)
   },
   computed: {
     countryOptions () {
-      let options = []
       if (this.onlyCountries != null) {
-        options = countries.filter(item => this.onlyCountries.find(country => item.iso2.includes(country)))
-      } else if (this.ignoredCountries != null) {
-        options = countries.filter(item => !(this.ignoredCountries.find(country => item.iso2.includes(country))))
-      } else {
-        options = countries
+        return countries.filter(item => this.onlyCountries.find(country => item.iso2.includes(country)))
       }
+      let options = []
+      let priorityCountries = this.priorityCountries ? this.priorityCountries : []
+      let ignoredCountries = this.ignoredCountries ? this.ignoredCountries : []
+      options = countries.filter(item => priorityCountries.find(country => item.iso2.includes(country)))
+      ignoredCountries = ignoredCountries.concat(priorityCountries)
+      options = options.concat(countries.filter(item => !(ignoredCountries.find(country => item.iso2.includes(country)))))
       return options
-    },
-    code: {
-      get () {
-        let ret = this.getCountryByValue(this.value)
-        if (ret != null) {
-          return ret.iso2
-        }
-        return null
-      },
-      set (countryCode) {
-        this.changeCountry(countryCode)
-        this.emitValue()
-      }
-    },
-    number: {
-      get () {
-        if (this.value == null) {
-          return null
-        }
-        return this.value.phoneNumber
-      },
-      set (phoneNumber) {
-        this.changeNumber(phoneNumber)
-        this.emitValue()
-      }
     }
   },
   methods: {
-    emitValue () {
-      console.log('input', this.selectValue)
-      this.$emit('input', this.selectValue)
+    isChanged (value) {
+      if (value && this.selectValue) {
+        return value.callingCode !== this.selectValue.callingCode ||
+          value.countryCode !== this.selectValue.countryCode ||
+          value.phoneNumber !== this.selectValue.phoneNumber
+      } else {
+        return value !== this.selectValue
+      }
+    },
+    setValue (value) {
+      if (value == null) {
+        this.selectValue = { callingCode: undefined, countryCode: undefined, phoneNumber: undefined }
+      }
+      const ret = this.getCountryByValue(value)
+      if (ret != null) {
+        this.selectValue.callingCode = ret.callingCode
+        this.selectValue.countryCode = ret.countryCode
+      }
+      if (value && value.phoneNumber) {
+        this.selectValue.phoneNumber = value.phoneNumber
+      } else {
+        this.selectValue.phoneNumber = undefined
+      }
     },
     getCountryByValue (value) {
       let ret = null
@@ -102,37 +109,39 @@ export default {
           ret = this.countryOptions.find(item => item.dialCode === value.callingCode)
         }
       }
+      if (ret != null) {
+        ret = {
+          callingCode: ret.dialCode,
+          countryCode: ret.iso2
+        }
+      }
       return ret
     },
-    handleSelectChanged (value) {
-      this.changeCountry(value)
-      this.$emit('change', this.value)
+    handleSelectInput (countryCode) {
+      this.changeCountry(countryCode)
+      this.$emit('input', this.getEmitValue())
     },
-    handleChanged (value) {
-      this.changeNumber(value)
-      this.$emit('change', this.value)
+    handleNumberInput (number) {
+      this.selectValue.phoneNumber = number
+      if (this.selectValue.callingCode == null && this.selectValue.countryCode == null) {
+        this.selectValue.countryCode = this.defaultCountry
+        const country = this.getCountryByValue(this.selectValue)
+        if (country) {
+          this.selectValue.callingCode = country.callingCode
+        }
+      }
+      this.$emit('input', this.getEmitValue())
     },
-    changeNumber (phoneNumber) {
-      if (this.value != null && this.value.countryCode != null) {
-        this.selectValue.countryCode = this.value.countryCode
-      }
-      if (this.value != null && this.value.callingCode != null) {
-        this.selectValue.callingCode = this.value.callingCode
-      }
-      this.selectValue.phoneNumber = phoneNumber
+    getEmitValue () {
+      return { countryCode: this.selectValue.countryCode, callingCode: this.selectValue.callingCode, phoneNumber: this.selectValue.phoneNumber }
     },
     changeCountry (countryCode) {
-      let ret = this.countryOptions.find(item => item.iso2 === countryCode)
       this.selectValue.countryCode = countryCode
-      this.selectValue.callingCode = ret.dialCode
-      if (this.value != null && this.value.phoneNumber != null) {
-        this.selectValue.phoneNumber = this.value.phoneNumber
+      let ret = this.countryOptions.find(item => item.iso2 === countryCode)
+      if (ret) {
+        this.selectValue.callingCode = ret.callingCode
       }
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
