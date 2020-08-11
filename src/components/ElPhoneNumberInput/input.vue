@@ -136,8 +136,11 @@ export default {
       return { countryCode: this.selectValue.countryCode, callingCode: this.selectValue.callingCode, phoneNumber: this.selectValue.phoneNumber }
     },
     changeCountry (countryCode) {
+      if (!countryCode) {
+        this.selectValue.callingCode = undefined
+      }
       this.selectValue.countryCode = countryCode
-      let ret = this.countryOptions.find(item => item.iso2 === countryCode)
+      let ret = this.getCountryByValue(this.selectValue)
       if (ret) {
         this.selectValue.callingCode = ret.callingCode
       }
