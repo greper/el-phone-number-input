@@ -85,6 +85,7 @@ export default {
           { validator: mobileValidator, message: '手机号不正确' }
         ],
         phone: [
+          { required: true, message: '请输入电话号码' },
           { validator: phoneNumberValidator, message: '电话号码不正确' }
         ]
       }

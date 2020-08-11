@@ -1,5 +1,6 @@
 import ElPhoneNumberInput from './input'
 import { parsePhoneNumberFromString } from 'libphonenumber-js/max'
+import { getCountryByValue } from './utils'
 
 function getParsePhoneNumberFromString ({ phoneNumber, countryCode }) {
   const parsing =
@@ -36,6 +37,10 @@ function phoneNumberValidator (rule, value, callback) {
   if (!value || value.phoneNumber == null || value.phoneNumber === '') {
     return callback()
   }
+  if (!value.countryCode && value.callingCode) {
+    let country = getCountryByValue(value)
+    value.countryCode = country.countryCode
+  }
   let parse = getParsePhoneNumberFromString({
     phoneNumber: value.phoneNumber,
     countryCode: value.countryCode
@@ -57,6 +62,10 @@ function phoneNumberValidator (rule, value, callback) {
 function mobileValidator (rule, value, callback) {
   if (!value || value.phoneNumber == null || value.phoneNumber === '') {
     return callback()
+  }
+  if (!value.countryCode && value.callingCode) {
+    let country = getCountryByValue(value)
+    value.countryCode = country.countryCode
   }
   let parse = getParsePhoneNumberFromString({
     phoneNumber: value.phoneNumber,
