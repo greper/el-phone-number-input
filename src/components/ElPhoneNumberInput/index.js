@@ -39,7 +39,9 @@ function phoneNumberValidator (rule, value, callback) {
   }
   if (!value.countryCode && value.callingCode) {
     let country = getCountryByValue(value)
-    value.countryCode = country.countryCode
+    if (country) {
+      value.countryCode = country.countryCode
+    }
   }
   let parse = getParsePhoneNumberFromString({
     phoneNumber: value.phoneNumber,
@@ -65,7 +67,9 @@ function mobileValidator (rule, value, callback) {
   }
   if (!value.countryCode && value.callingCode) {
     let country = getCountryByValue(value)
-    value.countryCode = country.countryCode
+    if (country) {
+      value.countryCode = country.countryCode
+    }
   }
   let parse = getParsePhoneNumberFromString({
     phoneNumber: value.phoneNumber,
