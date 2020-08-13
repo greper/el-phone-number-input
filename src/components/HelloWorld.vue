@@ -29,7 +29,7 @@
           <el-phone-number-input v-model="form.countryCode" :priorityCountries="priorityCountries" @change="handleChange"></el-phone-number-input>
         </el-form-item>
         <el-form-item label="国家选择宽度"  prop="only">
-          <el-phone-number-input v-model="form.countryCode" :onlyCountries="onlyCountries" selectWidth="200px" @change="handleChange"></el-phone-number-input>
+          <el-phone-number-input v-model="form.countryCode" :onlyCountries="onlyCountries" selectWidth="200" @change="handleChange"></el-phone-number-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('form')">提交</el-button>

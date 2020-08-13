@@ -5,7 +5,7 @@
     :value="selectValue.phoneNumber"
     :clearable="clearable"
     @input="handleNumberInput">
-    <el-select :style="{width:selectWidth?selectWidth:'130px'}" :filterable="filterable" :clearable="clearable" placeholder="请选择" slot="prepend"
+    <el-select :style="{width:_width}" :filterable="filterable" :clearable="clearable" placeholder="请选择" slot="prepend"
         :value="selectValue.countryCode" @input="handleSelectInput" >
       <el-option
         :key="item.iso2"
@@ -73,6 +73,20 @@ export default {
       ignoredCountries = ignoredCountries.concat(priorityCountries)
       options = options.concat(countries.filter(item => !(ignoredCountries.find(country => item.iso2.includes(country)))))
       return options
+    },
+    _width () {
+      let selectWidth = this.selectWidth
+      if (this.selectWidth) {
+        if (typeof this.selectWidth === 'number') {
+          selectWidth = this.selectWidth + 'px'
+        } if (typeof this.selectWidth === 'string') {
+          const convert = parseInt(this.selectWidth)
+          if (!isNaN(convert)) {
+            selectWidth = convert + 'px'
+          }
+        }
+      }
+      return selectWidth
     }
   },
   methods: {
