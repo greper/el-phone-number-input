@@ -76,15 +76,8 @@ export default {
     },
     _width () {
       let selectWidth = this.selectWidth
-      if (this.selectWidth) {
-        if (typeof this.selectWidth === 'number') {
-          selectWidth = this.selectWidth + 'px'
-        } if (typeof this.selectWidth === 'string') {
-          const convert = parseInt(this.selectWidth)
-          if (!isNaN(convert)) {
-            selectWidth = convert + 'px'
-          }
-        }
+      if (this.selectWidth && !isNaN(this.selectWidth)) {
+        selectWidth = this.selectWidth + 'px'
       }
       return selectWidth
     }
