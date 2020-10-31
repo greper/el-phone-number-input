@@ -4,8 +4,10 @@
     type="text"
     :value="selectValue.phoneNumber"
     :clearable="clearable"
+    :disabled="disabled"
+    :readonly="readonly"
     @input="handleNumberInput">
-    <el-select :style="{width:_width}" :filterable="filterable" :clearable="clearable" placeholder="请选择" slot="prepend"
+    <el-select  :disabled="disabled"  :readonly="readonly" :style="{width:_width}" :filterable="filterable" :clearable="clearable" placeholder="请选择" slot="prepend"
         :value="selectValue.countryCode" @input="handleSelectInput" >
       <el-option
         :key="item.iso2"
@@ -39,7 +41,9 @@ export default {
     selectWidth: { default: '130px', require: false },
     clearable: { default: true },
     filterable: { default: true },
-    defaultCountry: { default: 'CN' }
+    defaultCountry: { default: 'CN' },
+    disabled: { type: Boolean },
+    readonly: { type: Boolean }
   },
   data () {
     return {

@@ -10,6 +10,12 @@
         <el-form-item label="无默认值"  prop="noValue">
           <el-phone-number-input v-model="form.noValue" @change="handleChange"></el-phone-number-input>
         </el-form-item>
+        <el-form-item label="disabled"  prop="noValue">
+          <el-phone-number-input :disabled="true" v-model="form.noValue" @change="handleChange"></el-phone-number-input>
+        </el-form-item>
+        <el-form-item label="readonly"  prop="noValue">
+          <el-phone-number-input :readonly="true" v-model="form.noValue" @change="handleChange"></el-phone-number-input>
+        </el-form-item>
         <el-form-item label="手机号码"  prop="mobile">
           <el-phone-number-input v-model="form.mobile" :onlyCountries="onlyCountries" @change="handleChange"></el-phone-number-input>
         </el-form-item>
