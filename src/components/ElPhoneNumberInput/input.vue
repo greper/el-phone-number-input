@@ -7,7 +7,7 @@
     :disabled="disabled"
     :readonly="readonly"
     @input="handleNumberInput">
-    <el-select  :disabled="disabled"  :readonly="readonly" :style="{width:_width}" :filterable="filterable" :clearable="clearable" placeholder="请选择" slot="prepend"
+    <el-select  :disabled="disabled"  :readonly="readonly" :style="{width:_width}" :filterable="filterable" :clearable="clearable" :placeholder="codePlaceHolder" slot="prepend"
         :value="selectValue.countryCode" @input="handleSelectInput" >
       <el-option
         :key="item.iso2"
