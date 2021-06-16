@@ -62,7 +62,9 @@ function phoneNumberValidator (rule, value, callback) {
  * @returns {boolean|*}
  */
 function mobileValidator (rule, value, callback) {
-  if (!value || value.phoneNumber == null || value.phoneNumber === '') {
+  if (!value || value.phoneNumber == null || value.phoneNumber === '' ||
+    value.countryCode == null || value.countryCode === ''
+  ) {
     return callback()
   }
   if (!value.countryCode && value.callingCode) {
@@ -82,4 +84,20 @@ function mobileValidator (rule, value, callback) {
   return callback()
 }
 
-export { ElPhoneNumberInput, phoneNumberValidator, mobileValidator }
+/**
+ * 手机号必填校验
+ * @param rule
+ * @param value
+ * @param callback
+ * @returns {boolean|*}
+ */
+function mobileRequiredValidator (rule, value, callback) {
+  if (!value || value.phoneNumber == null || value.phoneNumber === '' ||
+    value.countryCode == null || value.countryCode === ''
+  ) {
+    return callback(new Error('该项必填'))
+  }
+  return callback()
+}
+
+export { ElPhoneNumberInput, phoneNumberValidator, mobileValidator, mobileRequiredValidator }
