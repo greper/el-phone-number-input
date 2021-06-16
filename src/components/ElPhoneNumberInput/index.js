@@ -92,9 +92,7 @@ function mobileValidator (rule, value, callback) {
  * @returns {boolean|*}
  */
 function mobileRequiredValidator (rule, value, callback) {
-  if (!value || value.phoneNumber == null || value.phoneNumber === '' ||
-    value.countryCode == null || value.countryCode === ''
-  ) {
+  if (!value || value.phoneNumber == null || value.phoneNumber === '') {
     return callback(new Error('该项必填'))
   }
   return callback()
