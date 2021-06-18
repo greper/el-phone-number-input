@@ -31,7 +31,7 @@ export default {
 </template>
 
 <script>
-import { ElPhoneNumberInput, mobileValidator, phoneNumberValidator } from './ElPhoneNumberInput/index.js'
+import { ElPhoneNumberInput,mobileRequiredValidator, mobileValidator, phoneNumberValidator } from './ElPhoneNumberInput/index.js'
 export default {
   name: 'Example',
   components: { ElPhoneNumberInput },
@@ -62,14 +62,18 @@ export default {
       },
       rules: {
         noValue: [
-          { required: true, message: '请输入手机号' }
+          { validator: mobileRequiredValidator, message: '请输入手机号' },
+          { required: true, message: '请输入手机号' },
         ],
         mobile: [
-          { required: true, message: '请输入手机号' },
+          { validator: mobileRequiredValidator, message: '请输入手机号' },
           { validator: mobileValidator, message: '手机号不正确' }
+          { required: true, message: '请输入手机号' },
         ],
         phone: [
-          { validator: phoneNumberValidator, message: '电话号码不正确' }
+          { validator: phoneNumberValidator, message: '电话号码不正确' },
+           { validator: mobileRequiredValidator, message: '请输入手机号' },
+          { validator: mobileValidator, message: '手机号不正确' }
         ]
       }
     }
