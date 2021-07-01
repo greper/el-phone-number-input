@@ -77,7 +77,7 @@ function mobileValidator (rule, value, callback) {
     phoneNumber: value.phoneNumber,
     countryCode: value.countryCode
   })
-  if (!parse.isValid || parse.type !== 'MOBILE') {
+  if (!parse.isValid || (parse.type !== 'MOBILE' && parse.type !== 'FIXED_LINE_OR_MOBILE')) {
     console.warn('parse:', parse)
     return callback(new Error('手机号错误'))
   }
